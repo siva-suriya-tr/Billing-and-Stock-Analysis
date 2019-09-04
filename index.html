@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Add Product/Item</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+
+</head>
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form">
+				<span class="contact100-form-title">
+					Add Product or Item
+				</span>
+
+				<div class="wrap-input100 validate-input bg1" data-validate="Please Enter Product Name">
+					<span class="label-input100"><b>Name of the Product</b></span>
+					<input class="input100" type="text" id="Name" placeholder="Enter Product Name">
+				</div>
+
+				<div class="wrap-input100 validate-input bg1" data-validate="தமிழ் பெயர்">
+					<span class="label-input100"><b>தமிழ் பெயர்</b></span>
+					<input class="input100 tamil" type="text" id="TamilName" placeholder="தமிழ் பெயர்">
+				</div>
+
+				<div class="wrap-input100 validate-input bg1" data-validate="Enter Category Number">
+					<span class="label-input100"><b>Number</b></span>
+					<input class="input100" type="text" id="Cnum" placeholder="Enter Category Number">
+				</div>
+
+				<div class="wrap-input100 bg1 rs1-wrap-input100" data-validate = "Enter Cost Price">
+					<span class="label-input100"><b>Cost Price</b> </span>
+					<input class="input100" type="text" id="CP" placeholder="Enter Cost Price">
+				</div>
+				
+				<div class="wrap-input100 bg1 rs1-wrap-input100" data-validate = "Enter Retail Price">
+					<span class="label-input100"><b>Retail Price</b></span>
+					<input class="input100" type="text" id="RP" placeholder="Enter Retail Price">
+				</div>
+
+				<div class="wrap-input100 bg1 rs1-wrap-input100" data-validate = "Enter Wholesale Price">
+					<span class="label-input100"><b>Wholesale Price</b></span>
+					<input class="input100" type="text" id="WP" placeholder="Enter Wholesale Price">
+				</div>
+
+				<div class="wrap-input100 bg1 rs1-wrap-input100" data-validate = "Enter Credit Card Price">
+					<span class="label-input100"><b>Credit Card Price</b></span>
+					<input class="input100" type="text" id="CCP" placeholder="Enter Credit Card Price">
+				</div>
+
+				<div class="wrap-input100 input100-select bg1">
+					<span class="label-input100">Measurement Type</span>
+					<div>
+						<select class="js-select2" name="service" id="Measurement">
+							<option>Please choose</option>
+							<option value="KG">Kilogram / Gram / Litre</option>
+							<option value="NUM">NOs</option>
+						</select>
+						<div class="dropDownSelect2"></div>
+					</div>
+				</div>
+			</form>
+			<div class="container-contact100-form-btn" style="padding-top: 100px;"> 
+				<button class="contact100-form-btn" onclick="FirebasePush()">
+					<span>
+						Submit
+						<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+					</span>
+				</button>
+			</div>
+		</div>
+	</div>
+<!--SCRIPTS-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use-->
+<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-firestore.js"></script>
+<script src="scripts/main.js"></script>
+<script language=JavaScript src="scripts/utf.js"></script>
+<script language=JavaScript src="scripts/tamil.js"></script>
+<script type="text/javascript" src="scripts/jquery.js"></script>
+
+
+
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+
+
+			$(".js-select2").each(function(){
+				$(this).on('select2:close', function (e){
+					if($(this).val() == "Please chooses") {
+						$('.js-show-service').slideUp();
+					}
+					else {
+						$('.js-show-service').slideUp();
+						$('.js-show-service').slideDown();
+					}
+				});
+			});
+		})
+	</script>
+	
+	<script>
+		$(document).ready(function(){
+			$('input,textarea').on('keydown',function(event){
+				if(event.which==121){
+					$(this).toggleClass('tamil');
+					return false;
+				}
+				if($(this).hasClass('tamil')){
+					toggleKBMode(event);
+				}else{
+					return true;
+				}
+			});
+			$('input,textarea').on('keypress',function(event){
+				if($(this).hasClass('tamil')){
+					convertThis(event);
+				}
+			});
+		});
+	</script>
+
+<!--SCRIPTS-->
+
+</body>
+</html>
