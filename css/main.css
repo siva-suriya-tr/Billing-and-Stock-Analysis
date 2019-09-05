@@ -67,6 +67,11 @@ h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
 }
 
+li.selected {
+  background:yellow;
+
+}
+
 p {
 	font-family: Poppins-Regular;
 	font-size: 14px;
@@ -286,6 +291,18 @@ textarea.input100 {
   justify-content: center;
   padding-top: 20px;
   width: 100%;
+}
+
+.container-contact100-form-btn-bill {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
+  width: 20%;
 }
 
 .contact100-form-btn {

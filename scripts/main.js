@@ -43,29 +43,28 @@ function FirebasePush()
 
 function display()
 {  
-  var counter = 0;
-  var counter1 = 0;
-  var counter2 = 0;
-
-  var division = document.getElementById('select'); 
-  document.getElementById("select").style.display = "block";
+  var division = document.getElementById('ul'); 
+  document.getElementById('ul').style.display = "block";
   
+  while (division.hasChildNodes()) {
+    division.removeChild(division.firstChild);
+  }
+
   var Category = document.getElementById('CNum').value;
   var query = firebase.database().ref(Category).orderByKey();
-query.once("value")
-  .then(function(snapshot) {
+  query.once("value").then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
-      // key will be "ada" the first time and "alan" the second time
       var key = childSnapshot.key;
-      // childData will be the actual contents of the child
-      //var childData = childSnapshot.val();
-      var newDivThingy = document.createElement("option");
-      newDivThingy.style.width = "100%";
-      newDivThingy.id  = 'option' + (++counter);
-      division.appendChild(newDivThingy);
-      document.getElementById('option'+(++counter1)).value=key;
-      document.getElementById('option'+(++counter2)).text=key;
-      console.log(key);
+      var li = document.createElement('li');
+      SetKey(key,li);
+      //console.log(key);
   });
 });
+}
+
+function SetKey(key,li){
+  var division = document.getElementById('ul');
+  li.innerHTML=key;
+  li.style.width = "100%";
+  division.appendChild(li);
 }
