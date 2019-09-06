@@ -45,8 +45,8 @@ function FirebasePush()
 
 function display()
 {  
-  var division = document.getElementById('ul'); 
-  document.getElementById('ul').style.display = "block";
+  var division = document.getElementById('table'); 
+  document.getElementById('table').style.display = "block";
   
   while (division.hasChildNodes()) {
     division.removeChild(division.firstChild);
@@ -57,18 +57,28 @@ function display()
   query.once("value").then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var key = childSnapshot.key;
-      var li = document.createElement('li');
-      SetKey(key,li);
-      //console.log(key);
+      var childData = childSnapshot.val();
+      var RP= childData.RetailPrice;
+      var WP= childData.WholesalePrice;
+      var CP= childData.CostPrice;
+      SetKey(key,RP,WP,CP);
+      
   });
 });
 }
 
-function SetKey(key,li){
-  var division = document.getElementById('ul');
-  li.innerHTML=key;
-  li.style.width = "100%";
-  division.appendChild(li);
+function SetKey(key,RP,WP,CP){
+  var table = document.getElementById('table');
+  var row = table.insertRow();
+  row.style.width="100%";
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  var cell4 = row.insertCell(3);
+  cell1.innerHTML = key;
+  cell2.innerHTML = RP;
+  cell3.innerHTML = WP;
+  cell4.innerHTML = CP;
 }
 
 
