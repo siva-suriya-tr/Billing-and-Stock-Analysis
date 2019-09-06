@@ -31,12 +31,14 @@ function FirebasePush()
     if (!snapshot.hasChild(Cnum)) {
       const NewRef = dbRef.child(Cnum);
       const userRef = NewRef.child(TName);
-      userRef.update(Data);
+      //userRef.update(Data);
+      userRef.update(Data, OnUpdate);
     }
     else {
       const NewRef = dbRef.child(Cnum);
       const userRef = NewRef.child(TName);
-      userRef.update(Data);
+      //userRef.update(Data);
+      userRef.update(Data, OnUpdate);
     }
 });
 }
@@ -67,4 +69,46 @@ function SetKey(key,li){
   li.innerHTML=key;
   li.style.width = "100%";
   division.appendChild(li);
+}
+
+
+var OnUpdate = function(error) {
+  if (error) {
+    // Get the modal
+    var modal = document.getElementById("myModal1");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    document.getElementById("Form").reset();
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
+
+
+  } 
+  else {
+     // Get the modal
+     var modal = document.getElementById("myModal");
+     // Get the <span> element that closes the modal
+     var span = document.getElementsByClassName("close")[0];
+     modal.style.display = "block";
+     document.getElementById("Form").reset();
+     span.onclick = function() {
+     modal.style.display = "none";
+     }
+     // When the user clicks anywhere outside of the modal, close it
+     window.onclick = function(event) {
+     if (event.target == modal) {
+       modal.style.display = "none";
+     }
+   } 
+
+
+  }
 }

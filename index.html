@@ -36,7 +36,7 @@
 <body>
 	<div class="container-contact100">
 		<div class="wrap-contact100">
-			<form class="contact100-form">
+			<form class="contact100-form" id="Form"> 
 				<span class="contact100-form-title">
 					Add Product or Item
 				</span>
@@ -98,6 +98,43 @@
 			</div>
 		</div>
 	</div>
+
+	<!--MODAL Popup for success-->
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<span class="close">&times;</span>
+			<h2 style="margin: 5px;">Insertion successful</h2>
+		  </div>
+		  <div class="modal-body">
+		<centre>
+			<p style="margin: 5px;"><br>Product details stored successfully.<br></p>
+			<p><br></p>
+		</centre>
+		  </div>
+		</div>
+	  
+	  </div>
+	  <!--MODAL Popup for failure-->
+	<div id="myModal1" class="modal">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+			  <div class="modal-header">
+				<span class="close">&times;</span>
+				<h2 style="margin: 5px;">Insertion Failed</h2>
+			  </div>
+			  <div class="modal-body">
+			<centre>
+				<p style="margin: 5px;"><br>Product details storage failed.<br></p>
+				<p><br></p>
+			</centre>
+			  </div>
+			</div>
+		  
+		  </div>
 <!--SCRIPTS-->
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
