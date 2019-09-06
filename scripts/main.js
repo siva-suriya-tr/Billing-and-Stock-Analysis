@@ -51,7 +51,7 @@ function display()
   while (division.hasChildNodes()) {
     division.removeChild(division.firstChild);
   }
-
+  SetHead();
   var Category = document.getElementById('CNum').value;
   var query = firebase.database().ref(Category).orderByKey();
   query.once("value").then(function(snapshot) {
@@ -66,18 +66,43 @@ function display()
   });
 });
 }
-
-function SetKey(key,RP,WP,CP){
+function SetHead(){
   var table = document.getElementById('table');
-  var row = table.insertRow();
-  row.style.width="100%";
+  var header = table.createTHead();
+  var row = header.insertRow(0);
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
   var cell3 = row.insertCell(2);
   var cell4 = row.insertCell(3);
+  table.style.width="100%";
+  header.style.width="100%";
+  header.style.border ="1px solid"
+  cell1.style.border ="1px solid"
+  cell2.style.border ="1px solid"
+  cell3.style.border ="1px solid"
+  cell4.style.border ="1px solid"
+  cell1.innerHTML = "Product";
+  cell2.innerHTML = "Wholesale Price";
+  cell3.innerHTML = "Retail Price";
+  cell4.innerHTML = "Cost Price";
+
+}
+function SetKey(key,RP,WP,CP){
+  var table = document.getElementById('table');
+  var row = table.insertRow();
+  row.style.width="100%";
+  row.style.border ="1px solid"
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  var cell4 = row.insertCell(3);
+  cell1.style.border ="1px solid"
+  cell2.style.border ="1px solid"
+  cell3.style.border ="1px solid"
+  cell4.style.border ="1px solid"
   cell1.innerHTML = key;
-  cell2.innerHTML = RP;
-  cell3.innerHTML = WP;
+  cell2.innerHTML = WP;
+  cell3.innerHTML = RP;
   cell4.innerHTML = CP;
 }
 
