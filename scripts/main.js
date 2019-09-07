@@ -1,5 +1,5 @@
 // Your web app's Firebase configuration
-var firebaseConfig = {
+let firebaseConfig = {
     apiKey: "AIzaSyA4dErMZzeflYmezPQS15QizJFjfbYXQ0I",
     authDomain: "billing-and-stock-analysis.firebaseapp.com",
     databaseURL: "https://billing-and-stock-analysis.firebaseio.com",
@@ -13,7 +13,7 @@ firebase.initializeApp(firebaseConfig);
 function FirebasePush()
 {
    
-   var Cnum = document.getElementById('Cnum').value,
+   let Cnum = document.getElementById('Cnum').value,
        Name = document.getElementById('Name').value,
        TName = document.getElementById('TamilName').value,
        CP = document.getElementById('CP').value,
@@ -45,89 +45,63 @@ function FirebasePush()
 
 function display()
 {  
-  var division = document.getElementById('table'); 
-  var modal = document.getElementById("myModal");
-  modal.style.display="block";
-  //document.getElementById('table').style.display = "block";
-  while (division.hasChildNodes()) {
-    division.removeChild(division.firstChild);
+  let Category = document.getElementById('CNum').value;
+  if(Category === "")
+  {
+    document.getElementById('error').style.display="block";
   }
-  SetHead();
-  var Category = document.getElementById('CNum').value;
-  var query = firebase.database().ref(Category).orderByKey();
+  else
+  {
+  document.getElementById('error').style.display="none";
+  let dataList = document.getElementById('dataList');
+  //let dataListInput = document.getElementById('dataListInput');
+  let modal = document.getElementById("myModal");
+  modal.style.display="block";
+  document.getElementById('dataListInput').value = "";
+  //document.getElementById('table').style.display = "block";
+  while (dataList.options.length != 0 ) {
+    dataList.children[0].remove()
+  }
+  let query = firebase.database().ref(Category).orderByKey();
   query.once("value").then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
-      var key = childSnapshot.key;
-      var childData = childSnapshot.val();
-      var RP= childData.RetailPrice;
-      var WP= childData.WholesalePrice;
-      var CP= childData.CostPrice;
-      SetKey(key,RP,WP,CP);
+      let key = childSnapshot.key;
+      let childData = childSnapshot.val();
+      let RP= childData.RetailPrice;
+      let WP= childData.WholesalePrice;
+      let CP= childData.CostPrice;
+      addItem(key);
   });
 });
-var modal = document.getElementById("myModal");
+  }
+let modalWin = document.getElementById("myModal");
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == modalWin) {
+    modalWin.style.display = "none";
   }
 }
 $(document).keyup(function(e) {
   if (e.keyCode === 27)// esc
   {
-    modal.style.display = "none";
+    modalWin.style.display = "none";
   }
 });
 }
-function SetHead(){
-  var table = document.getElementById('table');
-  var header = table.createTHead();
-  table.appendChild(header);
-  var row = header.insertRow(0);
-  row.style.background="#04cae4";
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  //table.style.width="100%";
-  //header.style.width="100%";
-  header.style.border ="1px solid";
-  cell1.style.border ="1px solid";
-  cell2.style.border ="1px solid";
-  cell3.style.border ="1px solid";
-  cell4.style.border ="1px solid";
-  cell1.innerHTML = "Product";
-  cell2.innerHTML = "Wholesale Price";
-  cell3.innerHTML = "Retail Price";
-  cell4.innerHTML = "Cost Price";
-}
-function SetKey(key,RP,WP,CP){
-  var table = document.getElementById('table');
-  var row = table.insertRow();
-  //row.style.width="100%";
-  //row.onclick = function(){console.log(row.rowIndex)};
-  row.style.border ="1px solid";
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  cell1.style.border ="1px solid";
-  cell2.style.border ="1px solid";
-  cell3.style.border ="1px solid";
-  cell4.style.border ="1px solid";
-  cell1.innerHTML = key;
-  cell2.innerHTML = WP;
-  cell3.innerHTML = RP;
-  cell4.innerHTML = CP;
- 
+function addItem(key)
+{
+  let dataList = document.getElementById('dataList');
+  let option = document.createElement('OPTION');
+  option.innerHTML = key;
+  option.setAttribute('onclick','tranferDetail()')
+  dataList.appendChild(option);
 }
 
-
-var OnUpdate = function(error) {
+let OnUpdate = function(error) {
   if (error) {
     // Get the modal
-    var modal = document.getElementById("myModal1");
+    let modal = document.getElementById("myModal1");
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    let span = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
     document.getElementById("Form").reset();
     span.onclick = function() {
@@ -142,9 +116,9 @@ var OnUpdate = function(error) {
   } 
   else {
      // Get the modal
-     var modal = document.getElementById("myModal");
+     let modal = document.getElementById("myModal");
      // Get the <span> element that closes the modal
-     var span = document.getElementsByClassName("close")[0];
+     let span = document.getElementsByClassName("close")[0];
      modal.style.display = "block";
      document.getElementById("Form").reset();
      span.onclick = function() {
@@ -160,3 +134,46 @@ var OnUpdate = function(error) {
 
   }
 }
+
+const CNum = document.getElementById('CNum');
+CNum.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      display();
+    }
+});
+
+const node = document.getElementById("dataListInput");
+node.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      tranferDetail();
+    }
+});
+
+function eraseText() {
+  document.getElementById("dataListInput").value = "";
+  document.getElementById("CNum").value = "";
+  let modalWin = document.getElementById("myModal");
+  modalWin.style.display = "none";
+}
+
+function tranferDetail()
+{
+      var input = document.getElementById("dataListInput").value;
+      let table = document.getElementById('table');
+      let row = table.insertRow();
+  //row.style.width="100%";
+  //row.onclick = function(){console.log(row.rowIndex)};
+      row.style.border ="1px solid";
+      let cell1 = row.insertCell(0);
+      cell1.style.border ="1px solid";
+      cell1.innerHTML = input;
+      eraseText();
+
+}
+
+shortcut.add("Space",function() {
+  if(document.getElementById('myModal').style.display === "none")
+  {
+  document.getElementById('CNum').focus();
+  }
+});
