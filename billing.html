@@ -41,7 +41,7 @@
 				</span>
                 <div class="wrap-input100 rs1-wrap-input100" data-validate="Enter Category Number">
                     <span class="label-input100"><b>Number</b></span>
-                    <input class="input100" type="text" id="CNum" placeholder="Enter Category Number">
+                    <input class="input100" type="text" id="CNum" placeholder="Enter Category Number"  autofocus>
 				</div>
 				<br>
 				
@@ -59,7 +59,7 @@
 				
 				<div class="modal" id="myModal">
 					<div class="modal-content1">
-						<input list="dataList" id="dataListInput" style="width: 100%;" autofocus>
+						<input list="dataList" id="dataListInput" style="width: 100%;" autofocus class="tamil">
 						<datalist id="dataList">
 						<option value="Internet Explorer">
 						<option value="Firefox">
@@ -86,6 +86,8 @@
 <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-firestore.js"></script>
 <script src="scripts/main.js"></script>
+<script language=JavaScript src="scripts/utf.js"></script>
+<script language=JavaScript src="scripts/tamil.js"></script>
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <!--===============================================================================================-->
 <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -96,6 +98,27 @@
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('input,textarea').on('keydown',function(event){
+				if(event.which==121){
+					$(this).toggleClass('tamil');
+					return false;
+				}
+				if($(this).hasClass('tamil')){
+					toggleKBMode(event);
+				}else{
+					return true;
+				}
+			});
+			$('input,textarea').on('keypress',function(event){
+				if($(this).hasClass('tamil')){
+					convertThis(event);
+				}
+			});
+		});
+	</script>
+
 <!--SCRIPTS-->
 
 </body>

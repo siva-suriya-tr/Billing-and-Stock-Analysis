@@ -73,6 +73,7 @@ function display()
       addItem(key);
   });
 });
+document.getElementById('dataListInput').focus();
   }
 let modalWin = document.getElementById("myModal");
 window.onclick = function(event) {
@@ -86,6 +87,9 @@ $(document).keyup(function(e) {
     modalWin.style.display = "none";
   }
 });
+var e = $.Event("keydown",{keyCode: 40});
+$("body").trigger(e);
+
 }
 function addItem(key)
 {
@@ -167,6 +171,7 @@ function tranferDetail()
       let cell1 = row.insertCell(0);
       cell1.style.border ="1px solid";
       cell1.innerHTML = input;
+      document.getElementById('CNum').focus();
       eraseText();
 
 }
