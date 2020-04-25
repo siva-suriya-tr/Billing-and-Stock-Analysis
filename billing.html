@@ -43,6 +43,10 @@
                     <span class="label-input100"><b>Number</b></span>
                     <input class="input100" type="text" id="CNum" placeholder="Enter Category Number"  autofocus>
 				</div>
+				<div class="wrap-input100 rs1-wrap-input100">
+                    <span class="label-input100"><b>Product</b></span>
+                    <input class="input100" type="text" placeholder="Product">
+				</div>
 				<br>
 				
 			</form>
@@ -117,6 +121,24 @@
 				}
 			});
 		});
+	</script>
+	<script>
+	var isShift = false;
+$("input").keydown(function(e){
+		if(e.keyCode==16)
+		isShift = true;
+    if ((e.keyCode==40 || e.keyCode==39) && !isShift) {
+      $(this).parent().next().find('input').focus()
+    }
+	  else  if ((e.keyCode==37 || e.keyCode==38) && !isShift) {
+      $(this).parent().prev().find('input').focus()
+    }
+});
+
+$("input").keyup(function(e){
+	if(e.keyCode==16)
+		isShift = false;
+});
 	</script>
 
 <!--SCRIPTS-->

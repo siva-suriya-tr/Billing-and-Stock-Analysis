@@ -74,7 +74,8 @@ function display()
   });
 });
 document.getElementById('dataListInput').focus();
-  }
+}
+
 let modalWin = document.getElementById("myModal");
 window.onclick = function(event) {
   if (event.target == modalWin) {
